@@ -4,6 +4,18 @@ import "/fileplus.svg"
 
 import { button, div, DominityRouter, h1, img, li, nav, p, state, ul} from 'dominity'
 
+let recents=state([{
+  fname:'linkedlist.c',
+  date:'19-02-2025',
+},{
+  fname:'arraySort.py',
+  date:'19-02-2025'
+},
+{
+  fname:'nig.ts',
+  date:'19-02-2025'
+}])
+
 function Home(r){
 
   return div(
@@ -11,8 +23,12 @@ function Home(r){
     ,p('code brr is an execturion platform for various programming languages'),
     button('new file',img({src:'fileplus.svg'})).on("click",()=>{
       let file=prompt("enter file name with extension :")
-
       r.routeTo('/editor?file='+file)
+
+      recents.value.push({
+        fname:file,
+        date:new Date().toUTCString()
+      })
     })
    , history()
   )
@@ -22,17 +38,7 @@ function Home(r){
 
 
 function history(){
-  let recents=state([{
-    fname:'linkedlist.c',
-    date:'19-02-2025',
-  },{
-    fname:'arraySort.py',
-    date:'19-02-2025'
-  },
-  {
-    fname:'nig.ts',
-    date:'19-02-2025'
-  }])
+
 
   return(
       div(
