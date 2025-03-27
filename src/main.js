@@ -9,22 +9,28 @@ function Home(r){
   return div(
     h1("hello codebrr")
     ,p('code brr is an execturion platform for various programming languages'),
-    r.Link({href:'/editor?file=joe'},button('new file',img({src:'fileplus.svg'})))
+    button('new file',img({src:'fileplus.svg'})).on("click",()=>{
+      let file=prompt("enter file name with extension :")
+
+      r.routeTo('/editor?file='+file)
+    })
    , history()
   )
 
 }
+
+
 
 function history(){
   let recents=state([{
     fname:'linkedlist.c',
     date:'19-02-2025',
   },{
-    fname:'arraySort.c',
+    fname:'arraySort.py',
     date:'19-02-2025'
   },
   {
-    fname:'nig.c',
+    fname:'nig.ts',
     date:'19-02-2025'
   }])
 

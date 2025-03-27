@@ -9,6 +9,9 @@ import { indentWithTab } from "@codemirror/commands";
 import { syntaxHighlighting } from "@codemirror/language";
 import { HighlightStyle } from "@codemirror/language";
 import { tags } from "@lezer/highlight";
+import { Compartment } from "@codemirror/state";
+import { cpp } from "@codemirror/lang-cpp";
+import { python } from "@codemirror/lang-python";
 
 
 let definedStyle=HighlightStyle.define([
@@ -21,18 +24,33 @@ let definedStyle=HighlightStyle.define([
     { tag: tags.punctuation, color: "#9A9B9C" }, // Light gray punctuation
 ])
 
+function chooseLang(fname){
+    if(fname.endsWith('.c') || fname.endsWith('.cpp')){
+        return cpp()
+    }else if(fname.endsWith('.js') || fname.endsWith('.ts')){
+        return javascript({
+            typescript:true
+        })
+    }else if(fname.endsWith('.py')){
+        return python()
+    }
+
+}
+
 export function Editor(router) {
    let ref = state("");
 
-   let fname=router?.queries?.file || 'newfile.js'
+   
 
+   let fname=router?.queries?.file || 'newfile.js'
+    let language=new Compartment
    effect(() => {
       new EditorView({
 
         doc:'\n'.repeat(22),
-         extensions: [basicSetup, javascript({
-            typescript:true
-         }),
+         extensions: [basicSetup,
+            
+        language.of(chooseLang(fname)),
          keymap.of([indentWithTab]),
          syntaxHighlighting(definedStyle)
          
