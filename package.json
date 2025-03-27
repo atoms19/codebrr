@@ -1,0 +1,26 @@
+{
+  "name": "codebrr",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "@codemirror/commands": "^6.8.0",
+    "@codemirror/lang-javascript": "^6.2.3",
+    "@codemirror/lang-python": "^6.1.7",
+    "@codemirror/language": "^6.11.0",
+    "@codemirror/state": "^6.5.2",
+    "@codemirror/theme-one-dark": "^6.1.2",
+    "@codemirror/view": "^6.36.4",
+    "@lezer/highlight": "^1.2.1",
+    "codemirror": "^6.0.1",
+    "dominity": "^6.3.9"
+  }
+}

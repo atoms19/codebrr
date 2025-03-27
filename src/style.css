@@ -1,0 +1,65 @@
+body{
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #1a1c1d;
+  color: #999;
+  padding: 1rem;
+}
+
+button{
+  padding: 0.25rem 1rem;
+  background-color: rgb(70, 14, 143);
+  color: white;
+  display: flex;
+  column-gap: 0.5rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  border:none;
+  cursor: pointer;
+  outline: none;
+}
+
+ul{
+  list-style: none;
+  padding: 0;
+  margin-left: none;
+}
+.recent-item{
+  margin:1rem;
+  padding:1rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: #262a2b;
+}
+
+.cm-editor{
+  font-size: 1rem;
+  background-color:#262a2b2d;
+  color:#a8a8a8;
+}
+
+.cm-gutters{
+  background-color:#262a2b !important;
+  border:none !important;
+}
+.cm-lineNumbers{
+  background-color: #262a2b;
+
+}
+
+.cm-focused{
+  background-color: #1a1c1d;
+}
+
+.cm-line.cm-activeLine{
+  background-color: #262a2b;
+}
+.cm-activeLineGutter{
+    background-color: rgb(82, 55, 112) !important;
+}
+.cm-selectionBackground{
+  background-color: #60506b !important;
+}
+
+
+
