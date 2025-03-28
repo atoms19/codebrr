@@ -12,6 +12,7 @@ import { tags } from "@lezer/highlight";
 import { Compartment } from "@codemirror/state";
 import { cpp } from "@codemirror/lang-cpp";
 import { python } from "@codemirror/lang-python";
+import { recents } from "./main";
 
 
 let definedStyle=HighlightStyle.define([
@@ -43,11 +44,17 @@ export function Editor(router) {
    
 
    let fname=router?.queries?.file || 'newfile.js'
-    let language=new Compartment
-   effect(() => {
-      new EditorView({
+    let language=new Compartment 
 
-        doc:'\n'.repeat(22),
+    let sourceCode;
+    let filefinder=recents.value.find(p=>p.fname==fname)
+    if(filefinder) sourceCode=filefinder.code;
+    else sourceCode=''
+
+    let editor;
+   effect(() => {
+      editor=new EditorView({
+        doc:sourceCode,
          extensions: [basicSetup,
             
         language.of(chooseLang(fname)),
@@ -59,6 +66,11 @@ export function Editor(router) {
         
       });
    });
+   
+   let saves=setInterval(()=>{
+    if(!filefinder) clearInterval(saves)
+    filefinder.code=editor.state.doc.toString()
+   },5000)
 
    return div(nav(h1(fname||'ere'), div().giveRef(ref, true)));
 }
