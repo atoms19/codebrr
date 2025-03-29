@@ -60,6 +60,43 @@ ul{
 .cm-selectionBackground{
   background-color: #60506b !important;
 }
+.editor-nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 
+input{
+  background-color: #262a2b;
+  border:none;
+  padding: 0.5rem 0.75rem;
+  width: 80%;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: rgb(172, 177, 177);
+  outline:none;
+  border-radius: 0.2rem;
+}
+input:focus{
+  border:2px solid rgb(70, 14, 143);
+}
 
+.prompt-wrapper{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top:0%;
+  left: 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  z-index: 100;
+  background-color: #aaaeaf83;
+}
+.prompt-container{
+  background-color: #1a1c1d;
+  border-radius: 0.45rem;
+  padding: 1rem;
+}

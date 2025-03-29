@@ -1,9 +1,7 @@
-import { div, effect, h1, nav, state } from "dominity";
+import { button, div, effect, h1, nav, state } from "dominity";
 
 import { basicSetup } from "codemirror";
 import { javascript } from "@codemirror/lang-javascript";
-import { oneDark } from "@codemirror/theme-one-dark";
-import { oneDarkHighlightStyle } from "@codemirror/theme-one-dark";
 import { keymap,EditorView } from "@codemirror/view";
 import { indentWithTab } from "@codemirror/commands";
 import { syntaxHighlighting } from "@codemirror/language";
@@ -41,10 +39,10 @@ function chooseLang(fname){
 export function Editor(router) {
    let ref = state("");
 
-   
+
 
    let fname=router?.queries?.file || 'newfile.js'
-    let language=new Compartment 
+    let language=new Compartment
 
     let sourceCode;
     let filefinder=recents.value.find(p=>p.fname==fname)
@@ -55,22 +53,24 @@ export function Editor(router) {
    effect(() => {
       editor=new EditorView({
         doc:sourceCode,
+
          extensions: [basicSetup,
-            
-        language.of(chooseLang(fname)),
+         language.of(chooseLang(fname)),
          keymap.of([indentWithTab]),
          syntaxHighlighting(definedStyle)
-         
+
         ],
          parent: ref.value,
-        
+
       });
    });
-   
+
    let saves=setInterval(()=>{
     if(!filefinder) clearInterval(saves)
     filefinder.code=editor.state.doc.toString()
    },5000)
 
-   return div(nav(h1(fname||'ere'), div().giveRef(ref, true)));
+   return div(
+    nav({class:'editor-nav'},h1(fname||'unknown.ts'),button("run")),
+    div().giveRef(ref, true));
 }

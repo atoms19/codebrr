@@ -1,3 +1,4 @@
+import PromptWindow from './_components/promptWindow'
 import { Editor } from './editor'
 import './style.css'
 import "/fileplus.svg"
@@ -22,15 +23,23 @@ function Home(r){
     h1("hello codebrr")
     ,p('code brr is an execturion platform for various programming languages'),
     button('new file',img({src:'fileplus.svg'})).on("click",()=>{
-      let file=prompt("enter file name with extension :") || ''
-      r.routeTo('/editor?file='+file)
+      let file=''
 
+      PromptWindow({
+        title:'File Name',
+        descrption:'enter the name of the file along with its extension',
+        prompt:'example.js'
+      }).on("promptEntry",(e)=>{
+      file=e.detail.value
+      r.routeTo('/editor?file='+file)
+        
       recents.value=[{
         fname:file,
         date:new Intl.DateTimeFormat('en-GB').format(new Date()).replaceAll('/','-')
       },...recents.value]
 
-
+      })
+        
     })
    , history()
   )
@@ -40,8 +49,6 @@ function Home(r){
 
 
 function history(){
-
-
   return(
       div(
           h1('Recents-----'),
@@ -52,11 +59,7 @@ function history(){
           })
 
       )
-
-
   )
-
-
 }
 
 let router=new DominityRouter() 
@@ -67,7 +70,6 @@ router.setRoutes({
   "/editor":{
     getComponent:Editor
   }
-
 })
 router.start(document.body)
 //Home()
