@@ -66,7 +66,19 @@ export function Editor(router) {
    }, 5000);
 
    return div(
-      nav({ class: "editor-nav" }, h1(fname || "unknown.ts"), button("run")),
-      div().giveRef(ref, true)
+      nav({ class: "editor-nav" }, h1(fname || "unknown.ts"), button("run").on('click',()=>runCode(editor))),
+      div().giveRef(ref, true),
+      nav({class:'toolbar'})
    );
+}
+
+
+function runCode(editor){
+   fetch('https://localhost:3000/exec',{
+      method:'POST',
+      body:{
+         code:editor.state.doc.toString(),
+         stdin:''
+      }
+   })
 }
