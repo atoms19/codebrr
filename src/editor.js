@@ -11,6 +11,7 @@ import { Compartment } from "@codemirror/state";
 import { cpp } from "@codemirror/lang-cpp";
 import { python } from "@codemirror/lang-python";
 import { recents } from "./main";
+import { language } from "@codemirror/language";
 
 let definedStyle = HighlightStyle.define([
    { tag: tags.keyword, color: "#C678DD", fontWeight: "bold" }, // Purple keywords
@@ -73,12 +74,22 @@ export function Editor(router) {
 }
 
 
-function runCode(editor){
-   fetch('https://localhost:3000/exec',{
+async function runCode(editor){
+   const res= await fetch('http://localhost:3000/execute',{
       method:'POST',
-      body:{
+     headers: { 'Content-Type': 'application/json' },
+      body:JSON.stringify({
          code:editor.state.doc.toString(),
-         stdin:''
-      }
+         language:'python'
+      })
    })
+   const reader=res.body.getReader()
+   const decoder=new TextDecoder()
+
+   while(true){
+      const content=await reader.read()
+      if(content.done)break;
+      console.log(decoder.decode(content.value))
+
+   }
 }
